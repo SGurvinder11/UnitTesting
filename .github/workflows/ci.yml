@@ -12,7 +12,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: ./UnitTesting/backend
+        working-directory: backend
 
     steps:
       - uses: actions/checkout@v4
@@ -21,17 +21,20 @@ jobs:
         with:
           python-version: "3.10"
 
-      - run: pip install -r requirements.txt
-      - run: pip install pytest
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install pytest
 
-      - run: pytest
+      - name: Run backend tests
+        run: pytest
 
   frontend-test:
     runs-on: ubuntu-latest
 
     defaults:
       run:
-        working-directory: ./UnitTesting/frontend
+        working-directory: frontend
 
     steps:
       - uses: actions/checkout@v4
@@ -40,5 +43,8 @@ jobs:
         with:
           node-version: 18
 
-      - run: npm install
-      - run: npm test
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run frontend tests
+        run: npm test
